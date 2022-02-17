@@ -1,0 +1,166 @@
+---
+title: "Tarea 2 ."
+author: "Moreno Juárez Ernesto"
+date: "16/2/2022"
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
+---
+## Problema 1. 
+Considera las siguientes cantidades discute y justifica que tipo de distribución
+de probabilidad pueden tener las siguientes variables.  
+  
+  A) El número (talla) de calzado de adultos varones en México.  
+  
+En este ejemplo considerando que existe una escala caracteristica promedio que permite 
+describir el calzado de adultos varones en México, la distribución sería de tipo Gaussiana.
+Según datos estadísticos la estatura promedio de los hombres es de 1.70 en los ultimos datos,
+las personas proporcionales a esa estatura tienen una medida de calzado al rededor de 6,0 a 6,5.  
+  
+  B) La distribución de habitantes en asentamientos humanos en México. 
+
+Para los asentamientos de habitantes en México, se podría tomar en cuenta que hay diversos puntos de concentración de personas en ciertos sitios y que en otros hay una menor cantidad de personas, por lo que se podría decir que responde a un modelo de cola larga. Principalmente en México se puede observar este fenomeno que los asentamientos humanos se encuentran más concentrados en ciudades con mayor trabajo o mejores oportunidades.Pero en ciertas regiones hay poblaciones con muy pocos habitantes.   
+  
+  C) La velocidad promedio de los automóviles en Bernardo Quintana a las 9 de la mañana en un día laborable.  
+    
+Considerando que en bernarnardo quintana en ciertos puntos hay una mayor concentración de tráfico, se puede argumentar que la distribución aquí es de tipo normal. Ya que el valor central o sea la media, en cierto punto significa la velocidad a la que se mantienen los automóviles en los puntos de tráfico debido a que no se puede ir más o menos rapido. Y en otros puntos la dispersión que en este caso es la velocidad puede cambiar de acuerdo a los diferentes puntos en los que no hay tráfico.  
+  
+  D) La velocidad promedio de los automóviles en Bernardo Quintana a las 3 de la
+mañana. 
+    
+Tomando en cuenta la hora. Podriamos ajustar que esta clase de eventos de la velocidad promedio de los automóviles a las 3 de la mañana, puede ser explicada mediante una distribución de poisson. Retomando esta distribución, nos explica que se describe el número de veces que ocurre un evento en un intervalo especifico. La velocidad a las tres de la mañana puede ser regular es decir, que no exista exceso de velocidad y que el transcurso de camino sea relativamente normal. Sin embargo puede existir datos que reflejen que hay ciertos automóviles que tengan una veolicdad alta o incluso baja, pero siempre se da más el caso de que las velocidades a esas horas sean regulares o normales y con mayor precaución.  
+  
+
+## Problema 2.  
+Supongamos que tenemos dos nodos(A,B) en una red. El nodo A y B tienen el mismo degree, pero el A tiene un coeficiente de clusterización de 1 y el nodo B un coeficiente bajo. Dibuja está situación y explica cuál sería una mejor diana si quieres eliminarlos y afectar la red.   
+
+![Ilustración de red](redAB.png) 
+
+Si se quiere afectar la red, la clave estaria en eliminar el nodo A o el nodo B. Hay que partir de que tanto el nodo A como el nodo B tienen 5 conexiones en el ejemplo, a estos los podriamos considerar Hubs por su grado de conexión con los demás, sin embargo el problema nos esta dando el coeficiente de clusterización y se sabe que el A tienen C=1, es decir todos sus vecinos estan conectados y cada uno tiene 5 conexiones los cuales se convierten en potenciales Hubs, entonces aquí tendriamos un cambio muy importante porque podriamos decir que al quitar los nodos A y B afectamos a la red por los niveles de conexiones sin embargo con remover a los vecinos del A también se tendría un impacto muy grande porque los vecinos al estar todos conectados entre si los vuelve muy importantes en la red. En conclusión para hacer colapsar a la red se pueden eliminar el A,B y los vecinos de A.  
+  
+## Problema 3.
+Elabora un programa en R que usando funciones calcule, a partir de una matriz de adyacencia(Sólo utiliza R base para resolver este problema)  
+```{r}
+##El primer paso es crear la matriz de adyacencia para poder trabajar los problemas.
+
+matadya<-matrix(c(0,9,2,0,9,0,2,2,2,2,0,0,0,2,0,0), nrow = 4, ncol = 4)
+matadya
+
+```
+    
+  A) Si la red es dirigida o no. 
+```{r}
+
+```
+    
+  B) Si la red es pesada o no.
+```{r}
+
+```
+  
+  C) El degree de los nodos.
+```{r}
+
+```
+    
+  D) El histograma del degree.
+```{r}
+
+```
+  
+    
+## Problema 4
+A partir de la red de interacción de proteínas alojada en la librería igraphdata,
+que puedes llamar mediante data(yeast) elabora un programa en R (acá sí puedes
+usar librerías especializadas de R)  
+  
+  A)Calcule la distribución de conectividades y grafique esa distribución . Discute
+tu resultado.
+```{r}
+library(igraphdata)
+library(igraph)
+data("yeast")
+
+Dyeast<- degree(yeast, mode="out")
+hist(Dyeast)
+```
+
+Este tipo de resultado obenido, nos confirma que esta red biológica responde a la propiedad de free-scale. El histograma ilustra perfectamente la relación estadística de cola larga, en la cual tenemos la presencia de nodos con una grado mucho más alto de conexiones y el resto de los nodos que son muchos los cuales representan conexiones menores. De esta manera es como se establece que esta red biológica es Free-Scale. Un punto importante en los análisis posteriores, es que se pueden ver los Hubs, o sea estos nodos que en esta caso, son estas proteínas con un grado de regulación muy alta conocidos como reguladores maestros. 
+  
+  B)Grafique el boxplot de la distribución de conectividades y discute tu resultado.
+```{r}
+boxplot(Dyeast)
+```
+
+
+De igual forma en este boxplot, se puede ver reflejado el modo free-scale de esta red de proteínas. Se ve en el boxplot los outlaiers correspondientes a los nodos que tienen un grado de conexiones muy altas. Sin embargo se puede ver la concentración de los nodos con muy pocas conexiones pero que son muchos. En este análisis, se cumple con la caracterisica universal de que no hay una escala definida para poder describir la red, y esto se ilustra en el boxplot.  
+  
+  c)Encuentre la proporción de nodos que tienen 15 o más conectividades.
+```{r}
+sort(Dyeast, decreasing = TRUE)[1:15]
+
+
+
+```
+
+Disucusión.  
+  
+  D)Calcule el degree máximo de la red.
+```{r}
+
+sort(Dyeast, decreasing = TRUE)[1:1] # Con este tenemos el nodo con más conexiones de toda la red.
+```
+  
+  E)Calcule el diametro
+```{r}
+diameter(yeast)
+```
+  
+  F) La trayectoria larga. 
+```{r}
+# Dos formas de hacerlo. 
+farthest_vertices(yeast)
+
+farthest.nodes(yeast)
+
+```
+  
+  G) Elimine los 10 nodos más conectados de la red y determine el diametro cada vez que lo haga.
+```{r}
+
+
+
+
+```
+  
+  H) Determine los diez nodos más importantes por al menos tres medidas de centralidad.
+```{r}
+
+
+
+```
+  
+  I) Clusterizar la red por al menos dos métodos y determinar el tamaño del
+clúster más grande.
+```{r}
+# Para tener un poder de comparación más grande, se puede comparar con tres metodos. 
+
+met1 <- cluster_fast_greedy(yeast)
+table(membership(met1))
+
+met2 <-cluster_leading_eigen(yeast)
+table(membership(met2))
+
+met3 <-cluster_label_prop(yeast)
+table(membership(met3))
+
+
+```
+ 
+  J) Determine si la red es de mundo pequeño, ultra pequeño u otra.
+```{r}
+transitivity(yeast)
+```
+Si tomamos en cuenta que al calcular el coeficiente de clusterización tenemos un resultado de 0.46... Los vecinos de los nodos no se encuentran totalmente conectados entre si, por lo que no podriamos decir que es de un mundo ultra pequeño, el valor esta cerca del 0.5 que es casi la mitad, lo que podriamos considerar que es de un mundo pequeño si ponemos valores en una escla del 0 al 1. Por lo que entre más cercano del 1, es un mundo pequeño. 
+
